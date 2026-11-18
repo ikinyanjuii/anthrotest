@@ -185,7 +185,7 @@ app.put("/api/criteria/:key", wrap((req, res) => {
 app.use((err: unknown, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
   if (err instanceof SyntaxError && !(err instanceof z.ZodError)) return res.status(400).json({ error: "Invalid JSON body" });
   sendError(res, err);
-}));
+});
 
 const port = Number(process.env.PORT ?? 3000);
 const server = app.listen(port, () => {
