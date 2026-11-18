@@ -1,0 +1,26 @@
+name: Feature Intel CI
+on:
+  push:
+    paths:
+      - "feature-intel/**"
+      - ".github/workflows/feature-intel-ci.yml"
+  pull_request:
+    paths:
+      - "feature-intel/**"
+      - ".github/workflows/feature-intel-ci.yml"
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: feature-intel
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: feature-intel/package-lock.json
+      - run: npm install
+      - run: npm run typecheck
+      - run: npm run smoke
